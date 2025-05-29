@@ -1,0 +1,569 @@
+/* ==========================================
+   ESTILOS PARA ORDEN DE SERVICIO
+========================================== */
+
+/* Sección principal */
+.order-service-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 100px;
+}
+
+.order-service-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e9ecef" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  opacity: 0.3;
+  z-index: 1;
+}
+
+.order-service-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Contenedor del formulario */
+.order-form-container {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 173, 181, 0.1);
+  position: relative;
+}
+
+/* Caja de términos */
+.terms-box {
+  background: linear-gradient(135deg, #e8f8f9, #f0fdfe);
+  border: 2px solid #00ADB5;
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.terms-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(180deg, #00ADB5, #2C5AA0);
+}
+
+.terms-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 173, 181, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.terms-icon i {
+  font-size: 24px;
+  color: #00ADB5;
+}
+
+.terms-box h3 {
+  color: #2C5AA0;
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+
+.terms-box p {
+  color: #8C96A7;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+/* Checkbox personalizado */
+.custom-checkbox {
+  position: relative;
+  margin: 20px 0;
+}
+
+.custom-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.custom-checkbox label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 500;
+  color: #393E46;
+  gap: 15px;
+}
+
+.checkmark {
+  width: 24px;
+  height: 24px;
+  background: #ffffff;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.custom-checkbox input:checked ~ label .checkmark {
+  background: #00ADB5;
+  border-color: #00ADB5;
+  transform: scale(1.1);
+}
+
+.checkmark::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 7px;
+  top: 3px;
+  width: 6px;
+  height: 12px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.custom-checkbox input:checked ~ label .checkmark::after {
+  display: block;
+}
+
+/* Formulario */
+.order-form {
+  animation: slideInUp 0.6s ease-out;
+}
+
+.form-step {
+  display: none;
+  animation: fadeInSlide 0.5s ease-out;
+}
+
+.form-step.active {
+  display: block;
+}
+
+.form-step h4 {
+  color: #2C5AA0;
+  margin-bottom: 30px;
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+}
+
+.form-step h4::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 3px;
+  background: linear-gradient(90deg, #00ADB5, #2C5AA0);
+  border-radius: 2px;
+}
+
+/* Grupos de formulario */
+.form-group {
+  margin-bottom: 25px;
+  position: relative;
+}
+
+.form-group label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: #393E46;
+  margin-bottom: 8px;
+}
+
+.form-group label i {
+  color: #00ADB5;
+  font-size: 18px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 15px 20px;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  background: #ffffff;
+}
+
+.form-control:focus {
+  border-color: #00ADB5;
+  box-shadow: 0 0 0 3px rgba(0, 173, 181, 0.1);
+  outline: none;
+}
+
+.form-control:valid {
+  border-color: #28a745;
+}
+
+.form-feedback {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #dc3545;
+}
+
+/* Opciones de pago */
+.payment-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.payment-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.payment-card {
+  display: block;
+  padding: 25px;
+  border: 2px solid #e9ecef;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  background: #ffffff;
+}
+
+.payment-card:hover {
+  border-color: #00ADB5;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 173, 181, 0.1);
+}
+
+.payment-option input:checked + .payment-card {
+  border-color: #00ADB5;
+  background: linear-gradient(135deg, #f0fdfe, #e8f8f9);
+  box-shadow: 0 10px 30px rgba(0, 173, 181, 0.2);
+}
+
+.payment-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.payment-card h5 {
+  color: #2C5AA0;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.payment-card p {
+  color: #8C96A7;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Campos extra */
+.extra-field {
+  display: none;
+  margin-top: 20px;
+  animation: slideDown 0.3s ease-out;
+}
+
+.extra-field.show {
+  display: block;
+}
+
+/* Información bancaria */
+.bank-info-card {
+  display: none;
+  margin-top: 20px;
+  animation: slideDown 0.3s ease-out;
+}
+
+.bank-info-card.show {
+  display: block;
+}
+
+.bank-card {
+  background: linear-gradient(135deg, #2C5AA0, #00ADB5);
+  color: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(44, 90, 160, 0.3);
+}
+
+.bank-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.bank-header i {
+  font-size: 24px;
+}
+
+.bank-header h5 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.bank-details {
+  display: grid;
+  gap: 12px;
+}
+
+.bank-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.bank-item .label {
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.bank-item .value {
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+/* Navegación del formulario */
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  gap: 15px;
+}
+
+.btn-prev, .btn-next, .btn-submit {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-prev {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-prev:hover {
+  background: #5a6268;
+  transform: translateX(-2px);
+}
+
+.btn-next, .btn-submit {
+  background: linear-gradient(135deg, #00ADB5, #2C5AA0);
+  color: white;
+  margin-left: auto;
+}
+
+.btn-next:hover, .btn-submit:hover {
+  transform: translateX(2px);
+  box-shadow: 0 5px 15px rgba(0, 173, 181, 0.3);
+}
+
+/* Indicador de progreso */
+.progress-indicator {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  gap: 20px;
+}
+
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.step-indicator.active {
+  opacity: 1;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #6c757d;
+  transition: all 0.3s ease;
+}
+
+.step-indicator.active .step-number {
+  background: linear-gradient(135deg, #00ADB5, #2C5AA0);
+  color: white;
+}
+
+.step-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #8C96A7;
+}
+
+.step-indicator.active .step-label {
+  color: #2C5AA0;
+}
+
+/* Resumen de orden */
+.form-summary {
+  background: #f8f9fa;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.form-summary h5 {
+  color: #2C5AA0;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.summary-content {
+  display: grid;
+  gap: 10px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.summary-item:last-child {
+  border-bottom: none;
+}
+
+.summary-label {
+  font-weight: 500;
+  color: #393E46;
+}
+
+.summary-value {
+  color: #8C96A7;
+}
+
+/* Opción de facturación */
+.billing-option {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.billing-note {
+  color: #8C96A7;
+  font-size: 14px;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Animaciones */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    max-height: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    max-height: 200px;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .order-form-container {
+    padding: 25px;
+  }
+  
+  .payment-options {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-navigation {
+    flex-direction: column;
+  }
+  
+  .btn-next, .btn-submit {
+    margin-left: 0;
+  }
+  
+  .progress-indicator {
+    gap: 10px;
+  }
+  
+  .step-number {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 576px) {
+  .terms-box {
+    padding: 20px;
+  }
+  
+  .terms-icon {
+    position: static;
+    margin-bottom: 15px;
+  }
+  
+  .bank-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+}

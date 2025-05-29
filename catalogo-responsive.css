@@ -1,0 +1,401 @@
+/* ==========================================
+   ESTILOS RESPONSIVE PARA CATÁLOGO
+========================================== */
+
+/* Estilos base del catálogo */
+.catalog-section {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+}
+
+.catalog-card {
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 173, 181, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.catalog-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 173, 181, 0.2);
+}
+
+.catalog-image {
+  position: relative;
+  height: 250px;
+  overflow: hidden;
+}
+
+.catalog-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.catalog-card:hover .catalog-image img {
+  transform: scale(1.1);
+}
+
+.catalog-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(0, 173, 181, 0.9), rgba(44, 90, 160, 0.9));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.catalog-card:hover .catalog-overlay {
+  opacity: 1;
+}
+
+.catalog-info {
+  text-align: center;
+  color: white;
+  padding: 20px;
+}
+
+.catalog-info h4 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.catalog-info p {
+  font-size: 16px;
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+
+.catalog-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.catalog-content {
+  padding: 25px;
+  text-align: center;
+}
+
+.catalog-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  display: block;
+}
+
+.catalog-content h5 {
+  color: #2C5AA0;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.catalog-content p {
+  color: #8C96A7;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Estadísticas */
+.catalog-stats {
+  background: linear-gradient(135deg, #e8f8f9, #f0fdfe);
+  border-radius: 20px;
+  padding: 50px 30px;
+  margin-top: 80px;
+}
+
+.stat-item {
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+}
+
+.stat-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #00ADB5, #2C5AA0);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  animation: pulse 2s infinite;
+}
+
+.stat-icon i {
+  font-size: 32px;
+  color: white;
+}
+
+.stat-item h3 {
+  font-size: 48px;
+  font-weight: 700;
+  color: #2C5AA0;
+  margin-bottom: 10px;
+}
+
+.stat-item p {
+  font-size: 18px;
+  color: #8C96A7;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* ==========================================
+   RESPONSIVE BREAKPOINTS
+========================================== */
+
+/* Tablets grandes (1024px y menos) */
+@media (max-width: 1024px) {
+  .catalog-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+  }
+  
+  .catalog-image {
+    height: 220px;
+  }
+  
+  .catalog-info h4 {
+    font-size: 22px;
+  }
+  
+  .catalog-info p {
+    font-size: 15px;
+  }
+}
+
+/* Tablets (768px y menos) */
+@media (max-width: 768px) {
+  .catalog-section {
+    padding: 80px 0;
+  }
+  
+  .catalog-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .catalog-image {
+    height: 200px;
+  }
+  
+  .catalog-content {
+    padding: 20px;
+  }
+  
+  .catalog-icon {
+    font-size: 40px;
+    margin-bottom: 12px;
+  }
+  
+  .catalog-content h5 {
+    font-size: 18px;
+  }
+  
+  .catalog-content p {
+    font-size: 14px;
+  }
+  
+  .catalog-info h4 {
+    font-size: 20px;
+  }
+  
+  .catalog-info p {
+    font-size: 14px;
+  }
+  
+  .catalog-stats {
+    padding: 40px 20px;
+    margin-top: 60px;
+  }
+  
+  .stat-icon {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 15px;
+  }
+  
+  .stat-icon i {
+    font-size: 28px;
+  }
+  
+  .stat-item h3 {
+    font-size: 40px;
+  }
+  
+  .stat-item p {
+    font-size: 16px;
+  }
+}
+
+/* Móviles grandes (576px y menos) */
+@media (max-width: 576px) {
+  .catalog-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .catalog-image {
+    height: 180px;
+  }
+  
+  .catalog-content {
+    padding: 15px;
+  }
+  
+  .catalog-icon {
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+  
+  .catalog-content h5 {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .catalog-content p {
+    font-size: 13px;
+  }
+  
+  .catalog-info {
+    padding: 15px;
+  }
+  
+  .catalog-info h4 {
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .catalog-info p {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  
+  .catalog-badge {
+    padding: 4px 12px;
+    font-size: 12px;
+  }
+  
+  .catalog-stats {
+    padding: 30px 15px;
+    margin-top: 40px;
+  }
+  
+  .stat-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 12px;
+  }
+  
+  .stat-icon i {
+    font-size: 24px;
+  }
+  
+  .stat-item {
+    padding: 15px;
+  }
+  
+  .stat-item h3 {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+  
+  .stat-item p {
+    font-size: 14px;
+  }
+}
+
+/* Móviles pequeños (480px y menos) */
+@media (max-width: 480px) {
+  .catalog-image {
+    height: 160px;
+  }
+  
+  .catalog-content {
+    padding: 12px;
+  }
+  
+  .catalog-icon {
+    font-size: 32px;
+  }
+  
+  .catalog-content h5 {
+    font-size: 15px;
+  }
+  
+  .catalog-content p {
+    font-size: 12px;
+  }
+  
+  .catalog-info h4 {
+    font-size: 16px;
+  }
+  
+  .catalog-info p {
+    font-size: 12px;
+  }
+  
+  .stat-item h3 {
+    font-size: 28px;
+  }
+  
+  .stat-item p {
+    font-size: 13px;
+  }
+}
+
+/* Animaciones */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Estados hover mejorados para móviles */
+@media (hover: none) and (pointer: coarse) {
+  .catalog-card:hover {
+    transform: none;
+  }
+  
+  .catalog-overlay {
+    opacity: 0.8;
+  }
+  
+  .stat-item:hover {
+    transform: none;
+  }
+}
+
+/* Optimización para pantallas de alta densidad */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .catalog-image img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}

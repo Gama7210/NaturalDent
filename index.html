@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutural Dental Clinic</title>
+  <meta name="description" content="Hospital and Clinic template" />
+
+  <link rel="shortcut icon" href="assets\img\logo\logo.png" type="image/x-icon" />
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="assets/css/bootstrap-5.0.5-alpha.min.css" />
+  <link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
+  <link rel="stylesheet" href="assets/css/animate.css" />
+  <link rel="stylesheet" href="assets/css/tiny-slider.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <script src="assets/js/bootstrap.bundle-5.0.0.alpha-min.js"></script>
+  <script src="assets/js/wow.min.js"></script>
+  <script src="assets/js/tiny-slider.js"></script>
+  <script src="assets/js/main.js"></script>
+  <!-- Antes del </body> en todos los archivos -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-config.js"></script>
+
+  <style>
+    /* ==========================================
+       CATÁLOGO DENTAL PROFESIONAL
+    ========================================== */
+    .catalog-section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0;
+    }
+
+    .catalog-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e9ecef" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+      z-index: 1;
+    }
+
+    .catalog-section .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Título de sección mejorado */
+    .catalog-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .catalog-subtitle {
+      font-size: 18px;
+      font-weight: 600;
+      color: #00ADB5;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .catalog-subtitle::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, #00ADB5, #2C5AA0);
+      border-radius: 2px;
+    }
+
+    .catalog-main-title {
+      font-size: 45px;
+      color: #393E46;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .catalog-description {
+      font-size: 18px;
+      color: #8C96A7;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    /* Grid del catálogo */
+    .catalog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    /* Tarjetas del catálogo */
+    .catalog-card {
+      background: #ffffff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 173, 181, 0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      height: 100%;
+    }
+
+    .catalog-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 173, 181, 0.2);
+    }
+
+    /* Imagen del producto */
+    .catalog-image {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+    }
+
+    .catalog-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .catalog-card:hover .catalog-image img {
+      transform: scale(1.1);
+    }
+
+    /* Overlay con información */
+    .catalog-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 173, 181, 0.9), rgba(44, 90, 160, 0.9));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .catalog-card:hover .catalog-overlay {
+      opacity: 1;
+    }
+
+    .catalog-info {
+      text-align: center;
+      color: white;
+      padding: 20px;
+    }
+
+    .catalog-info h4 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    .catalog-info p {
+      font-size: 14px;
+      margin-bottom: 15px;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Badge de categoría */
+    .catalog-badge {
+      display: inline-block;
+      background: linear-gradient(45deg, #FFD700, #FFA500);
+      color: #2C5AA0;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Contenido de la tarjeta */
+    .catalog-content {
+      padding: 25px;
+      text-align: center;
+      background: white;
+    }
+
+    .catalog-icon {
+      font-size: 40px;
+      margin-bottom: 15px;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0, 173, 181, 0.3));
+    }
+
+    .catalog-content h5 {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2C5AA0;
+      margin-bottom: 8px;
+    }
+
+    .catalog-content p {
+      font-size: 14px;
+      color: #6c757d;
+      margin: 0;
+    }
+
+    /* Estadísticas del laboratorio */
+    .catalog-stats {
+      background: linear-gradient(135deg, #2C5AA0, #00ADB5);
+      border-radius: 20px;
+      padding: 50px 30px;
+      margin-top: 60px;
+    }
+
+    .stat-item {
+      color: white;
+      transition: transform 0.3s ease;
+      text-align: center;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-icon {
+      width: 80px;
+      height: 80px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      transition: all 0.3s ease;
+    }
+
+    .stat-icon i {
+      font-size: 30px;
+      color: white;
+    }
+
+    .stat-item:hover .stat-icon {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.1);
+    }
+
+    .stat-item h3 {
+      font-size: 36px;
+      font-weight: 900;
+      color: #FFD700;
+      margin-bottom: 10px;
+    }
+
+    .stat-item p {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.9);
+      margin: 0;
+    }
+
+    /* Animaciones personalizadas */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .catalog-card:nth-child(odd) {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .catalog-card:nth-child(even) {
+      animation: float 6s ease-in-out infinite 3s;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .catalog-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      
+      .catalog-image {
+        height: 180px;
+      }
+      
+      .catalog-content {
+        padding: 20px;
+      }
+      
+      .catalog-stats {
+        padding: 30px 20px;
+      }
+      
+      .stat-item h3 {
+        font-size: 28px;
+      }
+
+      .catalog-main-title {
+        font-size: 35px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .catalog-subtitle {
+        font-size: 16px;
+      }
+      
+      .catalog-info h4 {
+        font-size: 18px;
+      }
+      
+      .catalog-content h5 {
+        font-size: 18px;
+      }
+
+      .catalog-main-title {
+        font-size: 28px;
+      }
+    }
+
+    /* Efectos adicionales */
+    .catalog-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.5s;
+      z-index: 1;
+    }
+
+    .catalog-card:hover::before {
+      left: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Tarjeta de Términos y Condiciones (Esquina inferior izquierda) -->
+  <div id="termsCard" class="terms-card">
+    <div class="terms-card-content">
+      <img src="assets\img\logo\logo.png" class="terms-logo" alt="Logo" />
+      <h3>Términos y Garantía</h3>
+      <p>Para continuar navegando en nuestro sitio, debes aceptar:</p>
+      
+      <div class="terms-links">
+        <a href="#" onclick="openModalContent('terminos'); return false;">Leer Términos y Condiciones</a>
+        <a href="#" onclick="openModalContent('garantia'); return false;">Leer Carta de Garantía</a>
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" id="acceptTerms" />
+        <label for="acceptTerms">
+          He leído y acepto los Términos y la Garantía
+        </label>
+      </div>
+      <button id="continueBtn" disabled>Continuar</button>
+    </div>
+  </div>
+
+  <!-- Modal para mostrar contenido de Términos o Garantía -->
+  <div id="termsModal" class="terms-modal">
+    <div class="terms-modal-content">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle">Términos y Condiciones</h2>
+      
+      <div id="modal-terminos" class="modal-text">
+        <h4>Términos y Condiciones</h4>
+        <p>
+          Al utilizar nuestros servicios, usted acepta que ha leído y entendido los términos que rigen el uso del sitio. 
+          Esto incluye, pero no se limita a: reglas de privacidad, derechos de propiedad intelectual, condiciones de uso, y limitación de responsabilidad. 
+          El uso indebido o fraudulento del sitio puede conllevar acciones legales.
+        </p>
+        <p>
+          <strong>1. Uso del sitio</strong><br>
+          Este sitio web es operado por Natural Dent. Al navegar y usar este sitio, aceptas nuestras reglas y responsabilidades. No ofrecemos diagnósticos en línea. Consulta siempre a un especialista.
+        </p>
+        <p>
+          <strong>2. Privacidad</strong><br>
+          Tu información se trata de manera confidencial. No compartimos tus datos con terceros sin consentimiento.
+        </p>
+        <p>
+          <strong>3. Enlaces externos</strong><br>
+          Este sitio puede incluir enlaces a otras páginas externas. No nos responsabilizamos por el contenido externo.
+        </p>
+      </div>
+      
+      <div id="modal-garantia" class="modal-text" style="display: none;">
+        <h4>Carta de Garantía</h4>
+        <p>
+          Garantizamos nuestros servicios dentales bajo normas de calidad. Si no está satisfecho con un procedimiento,
+          debe reportarlo en un plazo de 30 días naturales. Las garantías cubren correcciones sin costo, no incluyen
+          negligencia del paciente ni situaciones no previstas.
+        </p>
+        <p>
+          <strong>1. Cobertura</strong><br>
+          Natural Dent garantiza la calidad de sus tratamientos por un período de 12 meses desde la fecha de realización, siempre que el paciente cumpla con las recomendaciones médicas y acuda a sus controles.
+        </p>
+        <p>
+          <strong>2. Exclusiones</strong><br>
+          Quedan excluidos de garantía daños por negligencia del paciente, traumatismos o intervenciones realizadas por terceros no autorizados.
+        </p>
+        <p>
+          <strong>3. Procedimiento</strong><br>
+          Para hacer válida la garantía, el paciente deberá presentar su comprobante de servicio y acudir a una revisión donde se evaluará si aplica la garantía según las condiciones establecidas.
+        </p>
+      </div>
+      
+      <button onclick="closeModal()" class="modal-button">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="loader">
+      <div class="ytp-spinner">
+        <div class="ytp-spinner-container">
+          <div class="ytp-spinner-rotator">
+            <div class="ytp-spinner-left">
+              <div class="ytp-spinner-circle"></div>
+            </div>
+            <div class="ytp-spinner-right">
+              <div class="ytp-spinner-circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Start -->
+  <header id="home" class="header">
+    <div class="header-wrapper">
+
+      <!-- Top Bar -->
+      <div class="header-top theme-bg">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="header-top-left text-center text-md-left">
+              </div>
+            </div>
+<div class="col-md-4">
+  <div class="header-top-right d-none d-md-block">
+    <ul style="display: flex; align-items: center; gap: 15px;">
+      
+      <!-- Texto de invitación -->
+      <li style="color: white; font-size: 14px; font-weight: bold;">
+        <br><span style="font-weight: 400;">¡Contáctanos aquí!</span>
+      </li>
+
+      <!-- Ícono de WhatsApp -->
+      <li>
+        <a href="https://wa.me/XXXXXXXXXXX" target="_blank" title="Enviar mensaje por WhatsApp">
+          <img src="assets/img/logo/icons8-whatsapp.gif" alt="WhatsApp" style="width: 40px; height: 40px;" />
+        </a>
+      </li>
+
+      <!-- Ícono de Gmail -->
+      <li>
+        <a href="mailto:hellomedic@gmail.com" title="Enviar correo a Gmail">
+          <img src="assets/img/logo/icons8-gmail-nuevo-48.png" alt="Gmail" style="width: 40px; height: 40px;" />
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+         <!-- Navbar -->
+      <div class="navbar-area">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+            <nav class="navbar navbar-expand-lg animated-navbar">
+                <a class="navbar-brand" href="index.html">
+                  <img src="assets\img\logo\logo.png" alt="Logo" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                  aria-label="Toggle navigation">
+                  <span class="toggler-icon"></span>
+                  <span class="toggler-icon"></span>
+                  <span class="toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+            <ul id="nav" class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="page-scroll active" href="index.html">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a href="conocenos.html">Conócenos</a>
+              </li>
+              <li class="nav-item">
+                <a href="orden-servicio.html">Orden de Servicio</a>
+              </li>
+              <li class="nav-item">
+                <a  href="recoleccion.html">Recolección</a>
+              </li>
+              <li class="nav-item">
+                <a href="devolucion.html">Devoluciones</a>
+              </li>
+              <li class="nav-item">
+                <a  href="contacto.html">Contacto</a>
+              </li>
+            </ul>
+
+                </div> <!-- navbar-collapse -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Hero Slider -->
+    <div class="slider-wrapper">
+      <section class="slider-section">
+        <div class="slider-active slick-style">
+
+          <!-- Slide 1 -->
+          <div class="single-slider img-bg" style="background-image:url('assets/img/slider/slider-1.jpg');">
+            <div class="container">
+              <div class="row">
+                <div class="col-xl-7 col-lg-8 col-md-10">
+                  <div class="slider-content">
+                    <h1 data-animation="fadeInDown" data-duration="1.5s" data-delay=".5s">Laboratorio Dental Digital</h1>
+                    <p data-animation="fadeInLeft" data-duration="1.5s" data-delay=".7s">
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="single-slider img-bg" style="background-image:url('assets/img/slider/slider-2.jpg');">
+            <div class="container">
+              <div class="row">
+                <div class="col-xl-7 col-lg-8 col-md-10">
+                  <div class="slider-content">
+                    <h1 data-animation="fadeInDown" data-duration="1.5s" data-delay=".5s">Laboratorio Dental Digital</h1>
+                    <p data-animation="fadeInLeft" data-duration="1.5s" data-delay=".7s">
+                      especializado en prótesis de alta precisión. Combinamos tecnología digital con experiencia artesanal para ofrecer coronas, carillas y puentes de máxima calidad. Somos el aliado confiable de los profesionales dentales.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="single-slider img-bg" style="background-image:url('assets/img/slider/slider-3.jpg');">
+            <div class="container">
+              <div class="row">
+                <div class="col-xl-7 col-lg-8 col-md-10">
+                  <div class="slider-content">
+                    <h1 data-animation="fadeInDown" data-duration="1.5s" data-delay=".5s">Laboratorio Dental Digital</h1>
+                    <p data-animation="fadeInLeft" data-duration="1.5s" data-delay=".7s">
+                      
+                    </p>
+                   
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+    <!-- Hero Slider End -->
+
+  </header>
+  <!-- Header End -->
+  
+  <!-- What We Do Section -->
+  <section class="we-do-section pt-150">
+    <div class="shape shape-1">
+      <img src="assets/img/shapes/shape-1.svg" alt="">
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-8 mx-auto">
+          <div class="section-title text-center mb-55">
+            <span class="wow fadeInDown" data-wow-delay=".2s">What We Do</span>
+            <h2 class="mb-15 wow fadeInUp" data-wow-delay=".4s">What We Provide for Your Health</h2>
+            <p class="wow fadeInUp" data-wow-delay=".6s">
+              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy<br class="d-none d-lg-block">
+              eirmod tempor invidunt ut labore et dolore magna.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sample Service Box (repeat or customize as needed) -->
+      <div class="row">
+        <div class="col-lg-3 col-md-6">
+          <div class="we-do-item mb-30 text-center">
+            <div class="we-do-icon mb-25">
+              <!-- You can replace SVG with your icon or img -->
+              <i class="lni lni-sthethoscope" style="font-size: 2rem;"></i>
+            </div>
+            <h5>Specialist Doctors</h5>
+          </div>
+        </div>
+        <!-- Add more service icons as needed -->
+      </div>
+    </div>
+  </section>
+
+  <!-- CATÁLOGO PROFESIONAL MEJORADO -->
+  <section class="catalog-section">
+    <div class="container">
+      <div class="catalog-title">
+        <div class="catalog-subtitle wow fadeInDown" data-wow-delay=".2s">Nuestros Productos</div>
+        <h2 class="catalog-main-title wow fadeInUp" data-wow-delay=".4s">🦷 Catálogo de Prótesis Dentales</h2>
+        <p class="catalog-description wow fadeInUp" data-wow-delay=".6s">
+          Tecnología de vanguardia en prótesis dentales digitales. Cada producto está diseñado con precisión milimétrica para garantizar la máxima calidad y satisfacción del paciente.
+        </p>
+      </div>
+
+      <!-- Catálogo de Productos -->
+      <div class="catalog-grid">
+        <div class="catalog-card wow fadeInUp" data-wow-delay=".2s">
+          <div class="catalog-image">
+            <img src="image/prod1.jpg" alt="Implante Dental">
+            <div class="catalog-overlay">
+              <div class="catalog-info">
+                <h4>Implantes Dentales</h4>
+                <p>Implantes de titanio biocompatible con tecnología 3D</p>
+                <span class="catalog-badge">Premium</span>
+              </div>
+            </div>
+          </div>
+          <div class="catalog-content">
+            <div class="catalog-icon">🦷</div>
+            <h5>Implantes</h5>
+            <p>Precisión y durabilidad</p>
+          </div>
+        </div>
+
+        <div class="catalog-card wow fadeInUp" data-wow-delay=".3s">
+          <div class="catalog-image">
+            <img src="image/prod2.jpg" alt="Brackets Ortodónticos">
+            <div class="catalog-overlay">
+              <div class="catalog-info">
+                <h4>Brackets Ortodónticos</h4>
+                <p>Sistemas de ortodoncia de alta precisión</p>
+                <span class="catalog-badge">Innovación</span>
+              </div>
+            </div>
+          </div>
+          <div class="catalog-content">
+            <div class="catalog-icon">🧲</div>
+            <h5>Brackets</h5>
+            <p>Ortodoncia avanzada</p>
+          </div>
+        </div>
+
+        <div class="catalog-card wow fadeInUp" data-wow-delay=".4s">
+          <div class="catalog-image">
+            <img src="image/prod3.jpg" alt="Coronas de Zirconia">
+            <div class="catalog-overlay">
+              <div class="catalog-info">
+                <h4>Coronas de Zirconia</h4>
+                <p>Máxima resistencia y estética natural</p>
+                <span class="catalog-badge">Resistente</span>
+              </div>
+            </div>
+          </div>
+          <div class="catalog-content">
+            <div class="catalog-icon">💎</div>
+            <h5>Zirconia</h5>
+            <p>Resistencia superior</p>
+          </div>
+        </div>
+
+        <div class="catalog-card wow fadeInUp" data-wow-delay=".5s">
+          <div class="catalog-image">
+            <img src="image/prod4.jpg" alt="Resinas Dentales">
+            <div class="catalog-overlay">
+              <div class="catalog-info">
+                <h4>Resinas Dentales</h4>
+                <p>Materiales biocompatibles de última generación</p>
+                <span class="catalog-badge">Biocompatible</span>
+              </div>
+            </div>
+          </div>
+          <div class="catalog-content">
+            <div class="catalog-icon">🧪</div>
+            <h5>Resinas</h5>
+            <p>Estética natural</p>
+          </div>
+        </div>
+
+        <div class="catalog-card wow fadeInUp" data-wow-delay=".6s">
+          <div class="catalog-image">
+            <img src="image/prod5.jpg" alt="Pernos Dentales">
+            <div class="catalog-overlay">
+              <div class="catalog-info">
+                <h4>Pernos Dentales</h4>
+                <p>Soporte estructural de máxima calidad</p>
+                <span class="catalog-badge">Soporte</span>
+              </div>
+            </div>
+          </div>
+          <div class="catalog-content">
+            <div class="catalog-icon">📏</div>
+            <h5>Pernos</h5>
+            <p>Soporte confiable</p>
+          </div>
+        </div>
+
+        <div class="catalog-card wow fadeInUp" data-wow-delay=".7s">
+          <div class="catalog-image">
+            <img src="image/prod6.jpg" alt="Carillas Dentales">
+            <div class="catalog-overlay">
+              <div class="catalog-info">
+                <h4>Carillas Dentales</h4>
+                <p>Sonrisa perfecta con tecnología digital</p>
+                <span class="catalog-badge">Estética</span>
+              </div>
+            </div>
+          </div>
+          <div class="catalog-content">
+            <div class="catalog-icon">😁</div>
+            <h5>Carillas</h5>
+            <p>Sonrisa perfecta</p>
+          </div>
+        </div>
+
+        <div class="catalog-card wow fadeInUp" data-wow-delay=".8s">
+          <div class="catalog-image">
+            <img src="image/prod7.jpg" alt="Ortodoncia Digital">
+            <div class="catalog-overlay">
+              <div class="catalog-info">
+                <h4>Ortodoncia Digital</h4>
+                <p>Tratamientos ortodónticos personalizados</p>
+                <span class="catalog-badge">Digital</span>
+              </div>
+            </div>
+          </div>
+          <div class="catalog-content">
+            <div class="catalog-icon">🦷</div>
+            <h5>Ortodoncia</h5>
+            <p>Tratamiento digital</p>
+          </div>
+        </div>
+
+        <div class="catalog-card wow fadeInUp" data-wow-delay=".9s">
+          <div class="catalog-image">
+            <img src="image/prod8.jpg" alt="Modelos 3D">
+            <div class="catalog-overlay">
+              <div class="catalog-info">
+                <h4>Modelos 3D</h4>
+                <p>Réplicas exactas para planificación</p>
+                <span class="catalog-badge">3D</span>
+              </div>
+            </div>
+          </div>
+          <div class="catalog-content">
+            <div class="catalog-icon">🧊</div>
+            <h5>Modelos 3D</h5>
+            <p>Planificación exacta</p>
+          </div>
+        </div>
+
+        <div class="catalog-card wow fadeInUp" data-wow-delay="1s">
+          <div class="catalog-image">
+            <img src="image/prod9.jpg" alt="Guías Quirúrgicas">
+            <div class="catalog-overlay">
+              <div class="catalog-info">
+                <h4>Guías Quirúrgicas</h4>
+                <p>Precisión milimétrica en cirugías</p>
+                <span class="catalog-badge">Precisión</span>
+              </div>
+            </div>
+          </div>
+          <div class="catalog-content">
+            <div class="catalog-icon">🔬</div>
+            <h5>Guías Quirúrgicas</h5>
+            <p>Cirugía precisa</p>
+          </div>
+        </div>
+
+        <div class="catalog-card wow fadeInUp" data-wow-delay="1.1s">
+          <div class="catalog-image">
+            <img src="image/prod10.jpg" alt="Provisionales">
+            <div class="catalog-overlay">
+              <div class="catalog-info">
+                <h4>Provisionales</h4>
+                <p>Soluciones temporales de alta calidad</p>
+                <span class="catalog-badge">Temporal</span>
+              </div>
+            </div>
+          </div>
+          <div class="catalog-content">
+            <div class="catalog-icon">📄</div>
+            <h5>Provisionales</h5>
+            <p>Solución temporal</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Estadísticas del laboratorio -->
+      <div class="catalog-stats">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 mb-30">
+            <div class="stat-item">
+              <div class="stat-icon">
+                <i class="lni lni-users"></i>
+              </div>
+              <h3>250+</h3>
+              <p>Casos Exitosos</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-30">
+            <div class="stat-item">
+              <div class="stat-icon">
+                <i class="lni lni-timer"></i>
+              </div>
+              <h3>48h</h3>
+              <p>Tiempo de Entrega</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-30">
+            <div class="stat-item">
+              <div class="stat-icon">
+                <i class="lni lni-certificate"></i>
+              </div>
+              <h3>100%</h3>
+              <p>Garantía de Calidad</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 mb-30">
+            <div class="stat-item">
+              <div class="stat-icon">
+                <i class="lni lni-cog"></i>
+              </div>
+              <h3>10+</h3>
+              <p>Años de Experiencia</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Caso Real: Prótesis Impresa en 3D -->
+<section class="faq-section theme-bg">
+  <div class="faq-video-wrapper" style="text-align: center; padding: 60px 20px;">
+    <h2 class="text-white mb-4" style="font-weight: bold;">🦷 Caso Real: Prótesis Dental Impresa en 3D</h2>
+    <p class="text-white mb-5" style="max-width: 800px; margin: 0 auto; font-size: 18px;">
+      Observa uno de nuestros trabajos personalizados: una prótesis dental digital diseñada y fabricada en nuestra impresora 3D de alta precisión.  
+      Este modelo se ajusta perfectamente al paciente gracias al escaneo intraoral y al diseño asistido por computadora (CAD).  
+      Nuestro laboratorio ha completado más de <strong>250 casos únicos</strong>, hechos a la medida de cada sonrisa.
+    </p>
+    
+    <video width="800" height="auto" controls style="max-width: 100%; border-radius: 12px; box-shadow: 0 0 20px rgba(32, 231, 231, 0.6);">
+      <source src="assets/video/protesis3d.mp4" type="video/mp4">
+      Tu navegador no soporta la reproducción de video.
+    </video>
+  </div>
+</section>
+
+  <!-- Blog Section -->
+  <section id="blog" class="blog-section pt-150">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-8 mx-auto">
+          <div class="section-title text-center mb-55">
+            <span class="wow fadeInDown" data-wow-delay=".2s">Una prótesis dental digital impresa en 3D</span>
+            <h2 class="mb-15 wow fadeInUp" data-wow-delay=".4s">Algo de nuestro trabajo 🦷</h2>
+            <p class="wow fadeInUp" data-wow-delay=".6s">
+             Una prótesis dental digital impresa en 3D es una solución moderna fabricada mediante tecnología de impresión tridimensional a partir de escaneos digitales de la cavidad oral. Esta prótesis está hecha con resinas biocompatibles de alta precisión, lo que garantiza un ajuste personalizado, una estética natural y una funcionalidad óptima para el paciente. Su diseño digital permite una reproducción exacta de las estructuras dentales y una fabricación más rápida y reproducible en comparación con métodos tradicionales.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Blog Cards -->
+      <div class="row">
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="single-blog">
+            <img src="assets/img/blog/blog-1.png" alt="Blog 1" class="img-fluid mb-3">
+            <h4><a href="">🦷 Más de 250 trabajos realizados: ¡Creamos tu sonrisa a tu gusto!</a></h4>
+              <p>En Natural Dent fabricamos prótesis dentales digitales en 3D con tecnología de vanguardia. Cada pieza es diseñada de forma personalizada a partir de escaneos intraorales, garantizando precisión, comodidad y estética natural.
+              Utilizamos resinas biocompatibles de alta calidad y técnicas CAD-CAM para desarrollar:</p>
+
+          <p>   ✅ Coronas y carillas </p>
+           <p>   ✅ Pernos y resinas </p>
+           <p>   ✅ Brackets </p>
+           <p>   ✅ Ortodoncias </p>
+           <p>   ✅ Zirconia </p>
+           <p>   ✅ Modelos 3D </p>
+           <p>   ✅ Guías quirúrgicas </p>
+           <p>   ✅ Provisionales </p>
+
+                <p>💻 Diseño digital personalizado </p>
+
+             
+
+           <p>  📐 Cada prótesis es creada según tus necesidades clínicas y estéticas. ¡Nuestro equipo ha realizado más de 250 trabajos exitosos!
+              🛠️ Tecnología + artesanía = Resultados excepcionales.</p>
+
+          </div>
+        </div>
+        <!-- Add more blog cards as needed -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer pt-100 img-bg" style="background-image:url('assets/img/bg/footer-bg.jpg');">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-4 col-lg-5 col-md-6 mb-4">
+          <a href="index.html" class="logo mb-3 d-block"><img src="assets\img\logo\logo.png" alt="Footer Logo"></a>
+          <p>Natural Dent es un laboratorio dental especializado en soluciones protésicas modernas y de alta calidad,nuestro compromiso es ofrecer a los profesionales dentales piezas precisas, estéticas y funcionales, fabricadas con tecnología digital de última generación.
+
+En Natural Dent combinamos experiencia artesanal con innovación tecnológica, utilizando herramientas CAD/CAM, escaneo 3D</p>
+<div class="col-md-4">
+  <div class="header-top-right d-none d-md-block">
+    
+  </div>
+</div>
+        </div>
+<div class="col-xl-6 col-lg-4 col-md-12 mb-4">
+  <h4>Ubicación del Laboratorio</h4>
+  <iframe
+    class="w-100"
+    height="400"
+    frameborder="0"
+    style="border:0"
+    loading="lazy"
+    allowfullscreen
+    referrerpolicy="no-referrer-when-downgrade"
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3757.2163300883017!2d-99.121636!3d19.660774!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1f53eb1d955c1%3A0x921e971c1b92772b!2sLaboratorio%20Dental%20Digital%20ANAX!5e0!3m2!1ses-419!2smx!4v1748146579005!5m2!1ses-419!2smx">
+  </iframe>
+</div>
+
+      
+  </footer>
+
+  <!-- Scroll to Top -->
+  <a href="#" class="scroll-top"><i class="lni lni-arrow-up"></i></a>
+
+  <!-- JavaScript -->
+  <script src="assets/js/bootstrap.bundle-5.0.0.alpha-min.js"></script>
+  <script src="assets/js/wow.min.js"></script>
+  <script src="assets/js/tiny-slider.js"></script>
+  <script src="assets/js/main.js"></script>
+  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const termsCard = document.getElementById("termsCard");
+    const termsModal = document.getElementById("termsModal");
+    const checkbox = document.getElementById("acceptTerms");
+    const continueBtn = document.getElementById("continueBtn");
+    const modalTerminos = document.getElementById("modal-terminos");
+    const modalGarantia = document.getElementById("modal-garantia");
+    const modalTitle = document.getElementById("modalTitle");
+
+    // Verificar si ya se aceptaron los términos
+    if (localStorage.getItem("termsAccepted") === "true") {
+      termsCard.style.display = "none";
+    }
+
+    // Habilitar/deshabilitar botón según checkbox
+    checkbox.addEventListener("change", function () {
+      continueBtn.disabled = !this.checked;
+    });
+
+    // Ocultar tarjeta al aceptar
+    continueBtn.addEventListener("click", function () {
+      localStorage.setItem("termsAccepted", "true");
+      termsCard.style.display = "none";
+    });
+
+    // Mostrar contenido específico en el modal
+    window.openModalContent = function(section) {
+      termsModal.style.display = "flex";
+      
+      if (section === 'terminos') {
+        modalTitle.textContent = "Términos y Condiciones";
+        modalTerminos.style.display = "block";
+        modalGarantia.style.display = "none";
+      } else if (section === 'garantia') {
+        modalTitle.textContent = "Carta de Garantía";
+        modalTerminos.style.display = "none";
+        modalGarantia.style.display = "block";
+      }
+    };
+
+    // Cerrar modal
+    window.closeModal = function() {
+      termsModal.style.display = "none";
+    };
+
+    // Cerrar modal al hacer clic fuera del contenido
+    window.addEventListener("click", function(event) {
+      if (event.target === termsModal) {
+        closeModal();
+      }
+    });
+  });
+  </script>
+</body>
+
+</html>
